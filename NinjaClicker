@@ -1,0 +1,92 @@
+local player = game.Players.LocalPlayer
+local library = loadstring(game:HttpGet("https://pastebin.com/raw/JsdM2jiP",true))()
+library.options.underlinecolor = "rainbow"
+
+local main = library:CreateWindow("Main")
+
+local click = main:Toggle('Auto-Click', {flag = "click"})
+
+spawn(function()
+	while wait() do
+		if main.flags.click then 
+local Event = game:GetService("Workspace").Debris.Events.Click
+Event:FireServer()
+
+		end
+		
+	end
+end)
+
+local Re = main:Toggle('Auto-Rebirth', {flag = "Reb"})
+
+spawn(function()
+	while wait() do
+		if main.flags.Reb then
+local Event = game:GetService("Workspace").Debris.Events.MakeRebirth
+Event:FireServer()
+
+		end
+		
+	end
+end)
+
+
+local Spam = main:Toggle('Spam Chat', {flag = "spam"})
+
+spawn(function()
+	while wait() do
+		if main.flags.spam then
+local A_1 = "Noob Game" local A_2 = "All" 
+local Event = game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest Event:FireServer(A_1, A_2)
+
+		end
+		
+	end
+end)
+
+
+
+main:Section("- Script mr. crab#8485 -")
+
+local Misc = library:CreateWindow("Misc")
+ 
+local safez = Misc:Button("Safe pot", function()
+local plr = game.Players.LocalPlayer
+local safe = Instance.new("Part", workspace)
+safe.Name = "safepot"
+safe.Anchored = true
+safe.Size = Vector3.new(4000,1,4000)
+safe.Transparency = 0.5
+safe.CFrame = plr.Character.HumanoidRootPart.CFrame * CFrame.new(0,40000,0)
+plr.Character.HumanoidRootPart.CFrame = safe.CFrame * CFrame.new(0,20,0)
+end)
+
+-- Toggle GUi key
+Misc:Bind("Toggle GUI Key",
+{flag = "Toggle", owo = true},
+function()
+library.toggled = not library.toggled;
+for i, data in next, library.queue do
+local pos = (library.toggled and data.p or UDim2.new(-1, 0, -0.5,0))
+data.w:TweenPosition(pos, (library.toggled and 'Out' or 'In'), 'Quad', 0.15, true)
+wait();
+end
+end)
+ 
+-- Destroy GUI
+local Kill = Misc:Button("Destroy GUI", function()
+game:GetService("CoreGui").ScreenGui:Destroy()
+end)
+ 
+local ClickTp = Misc:Button("Click Tp", function()
+mouse = game.Players.LocalPlayer:GetMouse()
+tool = Instance.new("Tool")
+tool.RequiresHandle = false
+tool.Name = "Click Teleport"
+tool.Activated:connect(function()
+local pos = mouse.Hit+Vector3.new(0,2.5,0)
+pos = CFrame.new(pos.X,pos.Y,pos.Z)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pos
+end)
+tool.Parent = game.Players.LocalPlayer.Backpack
+end)
